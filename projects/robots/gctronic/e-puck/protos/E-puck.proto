@@ -30,7 +30,7 @@ PROTO E-puck [
   field MFNode     turretSlot          []                       # Extends the robot with new nodes in the turret slot.
   field MFNode     groundSensorsSlot   []                       # Extends the robot with new nodes in the ground slot. Typically: `E-puckGroundSensors.proto`.
   field SFBool     kinematic           FALSE                    # Defines whether the robot motion and its sensors are computed according to a 2D kinematics algorithm.
-  field SFString   v2RemoteControl     "e-puck_wifi"            # Defines the e-puck remote control mode; either "e-puck_wifi" or e-puck_bluetooth"
+  field SFString   v2RemoteControl     "e-puck_wifi"            # Defines the e-puck remote control mode; either "e-puck_wifi" or "e-puck_bluetooth_v2"
 ]
 {
 %{
