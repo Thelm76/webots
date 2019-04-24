@@ -139,6 +139,9 @@ void DeviceManager::clear() {
 
   mCamera = NULL;
   mAccelerometer = NULL;
+  mGyro = NULL;
+  mMagnetometer = NULL;
+  mToFSensor = NULL;
 
   for (int i = 0; i < 10; i++)
     mLeds[i] = NULL;
