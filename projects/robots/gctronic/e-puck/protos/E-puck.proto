@@ -501,7 +501,7 @@ Robot {
       DEF EPUCK_TOF DistanceSensor {
         translation 0 0.033 -0.035
         rotation 0 1 0 1.57
-        name "ToF"
+        name "tof"
         lookupTable [
           0 0 0 4 4 0
         ]
