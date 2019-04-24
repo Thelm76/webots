@@ -72,8 +72,8 @@ DeviceManager::DeviceManager() {
     mDevices.push_back(mDistanceSensors[i]);
   }
   
-  mToFSensor = new SingleValueSensor(wb_robot_get_device("tof"), 0);
-  mDevices.push_back(mToFSensor);
+  mTofSensor = new SingleValueSensor(wb_robot_get_device("tof"), 0);
+  mDevices.push_back(mTofSensor);
   
   for (int i = 0; i < 8; i++) {
     char name[4] = "ls0";
@@ -141,7 +141,7 @@ void DeviceManager::clear() {
   mAccelerometer = NULL;
   mGyro = NULL;
   mMagnetometer = NULL;
-  mToFSensor = NULL;
+  mTofSensor = NULL;
 
   for (int i = 0; i < 10; i++)
     mLeds[i] = NULL;
