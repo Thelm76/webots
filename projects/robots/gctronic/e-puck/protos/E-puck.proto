@@ -499,11 +499,11 @@ Robot {
     %{ end }%
     %{ if v2 then }%
       DEF EPUCK_TOF DistanceSensor {
-        translation 0 0.033 -0.035
+        translation 0 0.033 -0.035    #TODO edit the location to be more accurate
         rotation 0 1 0 1.57
         name "tof"
         lookupTable [
-          0 0 0 4 4 0
+          0 0 0 2 2000 0              #TODO add the noise to the simulation
         ]
       }
     %{ end }%
@@ -855,13 +855,13 @@ Robot {
       rotation 1 0 0 -1.57
     }
     DEF EPUCK_GYRO Gyro {
-#     lookupTable [ -100 -100 0.003 100 100 0.003 ]
+#     lookupTable [ -100 -100 0.003 100 100 0.003 ]       #TODO determine the lookup table
       rotation 1 0 0 -1.57
     }
     
     %{ if v2 then }%
-      DEF EPUCK_MAGNETOMETER Compass {
-#       lookupTable [ -100 -100 0.003 100 100 0.003 ]
+      DEF EPUCK_MAGNETOMETER Compass {                    #Is compass the good sensor type?
+#       lookupTable [ -100 -100 0.003 100 100 0.003 ]     #TODO determine the lookup table
         rotation 1 0 0 -1.57
         name "magnetometer"
       }
@@ -995,9 +995,9 @@ Robot {
   cpuConsumption 1.11 # 100% to 0% in 90[s] (calibrated for the rat's life contest)
   window IS window
   %{ if v2 then }%
-    remoteControl IS v2RemoteControl
+    remoteControl IS v2RemoteControl              #Maybe to revert back to (remoteControl "e-puck_wifi") for now 
   %{ else }%
-    remoteControl "e-puck_bluetooth"
+    remoteControl "e-puck_bluetooth"               
   %{ end }%
 }
 }
