@@ -503,7 +503,7 @@ Robot {
         rotation 0 1 0 1.57
         name "tof"
         lookupTable [
-          0 0 0 4 4 0
+          0 0 0 2 2000 0
         ]
       }
     %{ end }%
