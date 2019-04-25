@@ -32,6 +32,7 @@ public:
   const char *data() const { return mData; }
   int apply(int simulationTime);
   bool areDistanceSensorRequested() const { return mDistanceSensorRequested; }
+  bool isTofSensorRequested() const { return mTofSensorRequested; }
   bool areGroundSensorRequested() const { return mGroundSensorRequested; }
   bool areLightSensorRequested() const { return mLightSensorRequested; }
   bool isAccelerometerRequested() const { return mAccelerometerRequested; }
