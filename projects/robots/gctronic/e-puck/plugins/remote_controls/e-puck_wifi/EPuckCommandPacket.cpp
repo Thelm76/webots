@@ -31,9 +31,12 @@ using namespace std;
 
 EPuckCommandPacket::EPuckCommandPacket() :
   mDistanceSensorRequested(false),
+  mTofSensorRequested(false),
   mGroundSensorRequested(false),
   mLightSensorRequested(false),
   mAccelerometerRequested(false),
+  mGyroRequested(false),
+  mMagnetometerRequested(false),
   mEncoderRequested(false) {
   for (size_t i = 0; i < sizeof(mData); i++)
     mData[i] = 0;
@@ -46,9 +49,12 @@ void EPuckCommandPacket::clear() {
   for (size_t i = 0; i < sizeof(mData); i++)
     mData[i] = 0;
   mDistanceSensorRequested = false;
+  mTofSensorRequested = false;
   mGroundSensorRequested = false;
   mLightSensorRequested = false;
   mAccelerometerRequested = false;
+  mGyroRequested = false;
+  mMagnetometerRequested = false;
   mEncoderRequested = false;
 }
 
@@ -123,6 +129,14 @@ int EPuckCommandPacket::apply(int simulationTime) {
     mAccelerometerRequested = true;
     mData[1] |= 2;  // enable sensor packet
   }
+  if (DeviceManager::instance()->gyro()->isEnabled()) {
+    mGyroRequested = true;
+    mData[1] |= 2;  // enable sensor packet
+  }
+  if (DeviceManager::instance()->magnetometer()->isEnabled()) {
+    mMagnetometerRequested = true;
+    mData[1] |= 2;  // enable sensor packet
+  }
   for (int i = 0; i < 3; i++) {  // optional ground sensors
     const SingleValueSensor *gs = DeviceManager::instance()->groundSensor(i);
     if (gs && gs->isEnabled()) {
@@ -138,6 +152,9 @@ int EPuckCommandPacket::apply(int simulationTime) {
       break;
     }
   }
+  if (DeviceManager::instance()->tofSensor(i)->isEnabled()) {
+    mTofSensorRequested = true;
+    mData[1] |= 2;  // enable sensor packet
   for (int i = 0; i < 8; i++) {
     if (DeviceManager::instance()->lightSensor(i)->isEnabled()) {
       mLightSensorRequested = true;

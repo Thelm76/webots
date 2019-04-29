@@ -269,14 +269,27 @@ int Wrapper::robotStep(int step) {
   }
   TripleValuesSensor *accelerometer = DeviceManager::instance()->accelerometer();
   if (accelerometer->isEnabled()) {
-    const double calibration_k[3] = {-9.81 / 800.0, 9.81 / 800.0, 9.81 / 800.0};
-    const double calibration_offset = -2000.0;
     double values[3];
     for (int i = 0; i < 3; i++) {
-      short int acc = sensor_data[2 * i] + 256 * sensor_data[2 * i + 1];
-      values[i] = calibration_k[i] * (acc + calibration_offset);
+      double values[i] = sensor_data[2 * i] + (sensor_data[2 * i + 1] << 8);
     }
     wbr_accelerometer_set_values(accelerometer->tag(), values);
+  }
+  TripleValuesSensor *gyro = DeviceManager::instance()->gyro();
+  if (gyro->isEnabled()) {  
+    double values[3];
+    for (int i = 0; i < 3; i++) {
+      double values[i] = sensor_data[18 + 2 * i] + (sensor_data[19 + 2 * i] << 8);
+    }
+    wbr_gyro_set_values(gyro->tag(), values);
+  TripleValuesSensor *magnetometer = DeviceManager::instance()->magnetometer();
+  }
+  if (magnetometer->isEnabled()) {
+    double values[3];
+    for (int i = 0; i < 3; i++) {
+      float values[i] = 0; //TODO set formula (24 + 4 * i -> 27 + 4 * i)
+    }
+    wbr_gyro_set_values(magnetometer->tag(), values);
   }
   for (int i = 0; i < 3; i++) {
     SingleValueSensor *gs = DeviceManager::instance()->groundSensor(i);
@@ -294,6 +307,14 @@ int Wrapper::robotStep(int step) {
       wbr_distance_sensor_set_value(ds->tag(), value);
       ds->resetSensorRequested();
       ds->setLastRefreshTime(beginStepTime);
+    }
+  }
+  SingleValueSensor *tof = DeviceManager::instance()->tofSensor();
+    if (tof && tof->isSensorRequested()) {
+      const double value = sensor_data[69] + (sensor_data[70] << 8);
+      wbr_distance_sensor_set_value(tof->tag(), value);
+      tof->resetSensorRequested();
+      tof->setLastRefreshTime(beginStepTime);
     }
   }
   for (int i = 0; i < 8; i++) {

@@ -42,10 +42,13 @@ public:
   Led *led(int at) const { return mLeds[at]; }
   Motor *motor(int at) const { return mMotors[at]; }
   SingleValueSensor *distanceSensor(int at) const { return mDistanceSensors[at]; }
+  SingleValueSensor *tofSensor(int at) const { return mTofSensors[at]; }
   SingleValueSensor *lightSensor(int at) const { return mLightSensors[at]; }
   SingleValueSensor *groundSensor(int at) const { return mGroundSensors[at]; }
   SingleValueSensor *positionSensor(int at) const { return mPositionSensors[at]; }
   TripleValuesSensor *accelerometer() const { return mAccelerometer; }
+  TripleValuesSensor *gyro() const { return mGyro; }
+  TripleValuesSensor *magnetometer() const { return mMagnetometer; }
 
   void apply(int simulationTime);
 
@@ -64,10 +67,13 @@ private:
   Led *mLeds[10];
   Motor *mMotors[2];
   SingleValueSensor *mDistanceSensors[8];
+  SingleValueSensor *mTofSensor;
   SingleValueSensor *mLightSensors[8];
   SingleValueSensor *mGroundSensors[3];
   SingleValueSensor *mPositionSensors[2];
   TripleValuesSensor *mAccelerometer;
+  TripleValuesSensor *mGyro;
+  TripleValuesSensor *mMagnetometer;
 };
 
 #endif
