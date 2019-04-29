@@ -1003,7 +1003,7 @@ Robot {
   %{ if v2 then }%
     remoteControl IS v2RemoteControl              #Maybe to revert back to (remoteControl "e-puck_wifi") for now 
   %{ else }%
-    remoteControl "e-puck_bluetooth"               
+    remoteControl "e-puck_bluetooth"
   %{ end }%
 }
 }
