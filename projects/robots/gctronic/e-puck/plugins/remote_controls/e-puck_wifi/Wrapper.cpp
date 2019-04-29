@@ -43,6 +43,11 @@ using namespace std;
 static const int IMAGE_SIZE = 160 * 120 * 2;
 static const int SENSOR_DATA_SIZE = 104;
 
+union BytesToFloat{
+    unsigned char byte[4];
+    float floatVal;
+}bytesToFloat;
+
 Communication *Wrapper::cCommunication = NULL;
 Time *Wrapper::cTime = NULL;
 bool Wrapper::cSuccess = true;
@@ -287,7 +292,10 @@ int Wrapper::robotStep(int step) {
   if (magnetometer->isEnabled()) {
     double values[3];
     for (int i = 0; i < 3; i++) {
-      float values[i] = 0; //TODO set formula (24 + 4 * i -> 27 + 4 * i)
+        for (int j = 0; i < 4; j++){
+            bytesToFloat.byte[j] = sensor_data[24 + j + 4 * i]; //TODO or bytesToFloat.byte[4-j] = sensor_data[24 + j + 4 * i];
+        }
+        double values[i] = bytesToFloat.floatVal;
     }
     wbr_gyro_set_values(magnetometer->tag(), values);
   }
