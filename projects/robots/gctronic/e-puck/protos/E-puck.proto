@@ -30,6 +30,7 @@ PROTO E-puck [
   field MFNode     turretSlot          []                       # Extends the robot with new nodes in the turret slot.
   field MFNode     groundSensorsSlot   []                       # Extends the robot with new nodes in the ground slot. Typically: `E-puckGroundSensors.proto`.
   field SFBool     kinematic           FALSE                    # Defines whether the robot motion and its sensors are computed according to a 2D kinematics algorithm.
+  field SFString   v2RemoteControl     "e-puck_wifi"            # Defines the e-puck remote control mode; either "e-puck_wifi" or "e-puck_bluetooth_v2"
 ]
 {
 %{
@@ -496,6 +497,17 @@ Robot {
         ]
       }
     %{ end }%
+    %{ if v2 then }%
+      DEF EPUCK_TOF DistanceSensor {
+        translation 0 0.033 -0.035    #TODO edit the location to be more accurate
+        rotation 0 1 0 1.57
+        name "tof"
+        lookupTable [
+          0 0 0.03 2 2000 0.3              #TODO add the noise to the simulation
+        ]
+        resolution 1
+      }
+    %{ end }%
     DEF EPUCK_PS0 E-puckDistanceSensor {
       translation 0.01 0.033 -0.03
       rotation 0 1 0 1.27
@@ -840,9 +852,27 @@ Robot {
       ]
     }
     DEF EPUCK_ACCELEROMETER Accelerometer {
-      lookupTable [ -100 -100 0.003 100 100 0.003 ]
+      lookupTable [ -19.62 -1500 0.03 19.62 1500 0.03 ]         #TODO verify noise
       rotation 1 0 0 -1.57
+      resolution 1
     }
+
+    %{ if v2 }
+    DEF EPUCK_GYRO Gyro {
+      lookupTable [ -4.3633 -32768 0.03 4.3633 32767 0.03 ]     # convert rad/s in the range of +-250dps   #TODO add noise
+      rotation 1 0 0 -1.57
+      resolution 1
+    }
+    
+    %{ if v2 then }%
+      DEF EPUCK_MAGNETOMETER Compass {
+        lookupTable [ -4912 -32760 0.03 4912 32760 0.03 ]       #TODO determine the lookup table
+        rotation 1 0 0 -1.57
+        name "magnetometer"
+        resolution -1                                           #TODO define resolution
+      }
+    %{ end }%
+
     DEF EPUCK_SMALL_LOGO Transform {
       translation 0 0.031 0.035
       rotation 0 1 0 3.14159
@@ -971,7 +1001,7 @@ Robot {
   cpuConsumption 1.11 # 100% to 0% in 90[s] (calibrated for the rat's life contest)
   window IS window
   %{ if v2 then }%
-    remoteControl "e-puck_wifi"
+    remoteControl IS v2RemoteControl              #Maybe to revert back to (remoteControl "e-puck_wifi") for now 
   %{ else }%
     remoteControl "e-puck_bluetooth"
   %{ end }%

@@ -32,17 +32,23 @@ public:
   const char *data() const { return mData; }
   int apply(int simulationTime);
   bool areDistanceSensorRequested() const { return mDistanceSensorRequested; }
+  bool isTofSensorRequested() const { return mTofSensorRequested; }
   bool areGroundSensorRequested() const { return mGroundSensorRequested; }
   bool areLightSensorRequested() const { return mLightSensorRequested; }
   bool isAccelerometerRequested() const { return mAccelerometerRequested; }
+  bool isGyroRequested() const { return mGyroRequested; }
+  bool isMagnetometerRequested() const { return mMagnetometerRequested; }
   bool isEncoderRequested() const { return mEncoderRequested; }
   bool isCameraRequested() const { return ((mData[1] & 1) == 1); }
 
 private:
   bool mDistanceSensorRequested;
+  bool mTofSensorRequested;
   bool mGroundSensorRequested;
   bool mLightSensorRequested;
   bool mAccelerometerRequested;
+  bool mGyroRequested;
+  bool mMagnetometerRequested;
   bool mEncoderRequested;
   char mData[EPUCK_COMMAND_PACKET_SIZE];
 };

@@ -51,6 +51,12 @@ DeviceManager::DeviceManager() {
 
   mAccelerometer = new TripleValuesSensor(wb_robot_get_device("accelerometer"), 0);
   mDevices.push_back(mAccelerometer);
+  
+  mGyro = new TripleValuesSensor(wb_robot_get_device("gyro"), 0);
+  mDevices.push_back(mGyro);
+  
+  mMagnetometer = new TripleValuesSensor(wb_robot_get_device("magnetometer"), 0);
+  mDevices.push_back(mMagnetometer);
 
   for (int i = 0; i < 10; i++) {
     char name[5] = "led0";
@@ -65,7 +71,10 @@ DeviceManager::DeviceManager() {
     mDistanceSensors[i] = new SingleValueSensor(wb_robot_get_device(name), i);
     mDevices.push_back(mDistanceSensors[i]);
   }
-
+  
+  mTofSensor = new SingleValueSensor(wb_robot_get_device("tof"), 0);
+  mDevices.push_back(mTofSensor);
+  
   for (int i = 0; i < 8; i++) {
     char name[4] = "ls0";
     name[2] += i;
@@ -130,6 +139,9 @@ void DeviceManager::clear() {
 
   mCamera = NULL;
   mAccelerometer = NULL;
+  mGyro = NULL;
+  mMagnetometer = NULL;
+  mTofSensor = NULL;
 
   for (int i = 0; i < 10; i++)
     mLeds[i] = NULL;
