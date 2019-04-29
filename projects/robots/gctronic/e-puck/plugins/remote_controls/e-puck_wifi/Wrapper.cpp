@@ -292,7 +292,7 @@ int Wrapper::robotStep(int step) {
   if (magnetometer->isEnabled()) {
     double values[3];
     for (int i = 0; i < 3; i++) {
-        for (int j = 0; i < 4; j++){
+        for (int j = 0; j < 4; j++){
             bytesToFloat.byte[j] = sensor_data[24 + j + 4 * i]; //TODO or bytesToFloat.byte[4-j] = sensor_data[24 + j + 4 * i];
         }
         double values[i] = bytesToFloat.floatVal;
