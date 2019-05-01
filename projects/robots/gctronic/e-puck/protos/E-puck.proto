@@ -505,7 +505,7 @@ Robot {
         lookupTable [
           0 0 0.03 2 2000 0.3              #TODO add the noise to the simulation
         ]
-        resolution 1
+        resolution 0.001
       }
     %{ end }%
     DEF EPUCK_PS0 E-puckDistanceSensor {
@@ -854,14 +854,14 @@ Robot {
     DEF EPUCK_ACCELEROMETER Accelerometer {
       lookupTable [ -19.62 -1500 0.03 19.62 1500 0.03 ]         #TODO verify noise
       rotation 1 0 0 -1.57
-      resolution 1
+      resolution 0.01308                                        #TODO verify resolution #(19.62 / 1500)
     }
 
     %{ if v2 then }%
       DEF EPUCK_GYRO Gyro {
-        lookupTable [ -4.3633 -32768 0.03 4.3633 32767 0.03 ]     # convert rad/s in the range of +-250dps   #TODO add noise
+        lookupTable [ -4.3633 -32768 0.03 4.3633 32767 0.03 ]   # convert rad/s in the range of +-250dps   #TODO add noise
         rotation 1 0 0 -1.57
-        resolution 1
+        resolution 0.000133161412                               #TODO verify resolution #(4.3633 / 32767)
       }
     %{ end }%
 
@@ -870,7 +870,7 @@ Robot {
         lookupTable [ -4912 -32760 0.03 4912 32760 0.03 ]       #TODO determine the lookup table
         rotation 1 0 0 -1.57
         name "magnetometer"
-        resolution -1                                           #TODO define resolution
+        resolution 0.14993895                                   #TODO verify resolution #(4912 / 32760)
       }
     %{ end }%
 
