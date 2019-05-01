@@ -42,7 +42,7 @@ public:
   Led *led(int at) const { return mLeds[at]; }
   Motor *motor(int at) const { return mMotors[at]; }
   SingleValueSensor *distanceSensor(int at) const { return mDistanceSensors[at]; }
-  SingleValueSensor *tofSensor(int at) const { return mTofSensor; }
+  SingleValueSensor *tofSensor() const { return mTofSensor; }
   SingleValueSensor *lightSensor(int at) const { return mLightSensors[at]; }
   SingleValueSensor *groundSensor(int at) const { return mGroundSensors[at]; }
   SingleValueSensor *positionSensor(int at) const { return mPositionSensors[at]; }
