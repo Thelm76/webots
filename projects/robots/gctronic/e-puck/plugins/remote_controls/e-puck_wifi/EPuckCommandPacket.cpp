@@ -152,9 +152,10 @@ int EPuckCommandPacket::apply(int simulationTime) {
       break;
     }
   }
-  if (DeviceManager::instance()->tofSensor(i)->isEnabled()) {
+  if (DeviceManager::instance()->tofSensor()->isEnabled()) {
     mTofSensorRequested = true;
     mData[1] |= 2;  // enable sensor packet
+  }
   for (int i = 0; i < 8; i++) {
     if (DeviceManager::instance()->lightSensor(i)->isEnabled()) {
       mLightSensorRequested = true;
