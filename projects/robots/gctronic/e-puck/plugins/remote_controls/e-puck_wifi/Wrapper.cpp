@@ -276,7 +276,7 @@ int Wrapper::robotStep(int step) {
   if (accelerometer->isEnabled()) {
     double values[3];
     for (int i = 0; i < 3; i++) {
-      double values[i] = sensor_data[2 * i] + (sensor_data[2 * i + 1] << 8);
+      values[i] = sensor_data[2 * i] + (sensor_data[2 * i + 1] << 8);
     }
     wbr_accelerometer_set_values(accelerometer->tag(), values);
   }
@@ -284,18 +284,18 @@ int Wrapper::robotStep(int step) {
   if (gyro->isEnabled()) {  
     double values[3];
     for (int i = 0; i < 3; i++) {
-      double values[i] = sensor_data[18 + 2 * i] + (sensor_data[19 + 2 * i] << 8);
+      values[i] = sensor_data[18 + 2 * i] + (sensor_data[19 + 2 * i] << 8);
     }
     wbr_gyro_set_values(gyro->tag(), values);
-  TripleValuesSensor *magnetometer = DeviceManager::instance()->magnetometer();
   }
+  TripleValuesSensor *magnetometer = DeviceManager::instance()->magnetometer();
   if (magnetometer->isEnabled()) {
     double values[3];
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 4; j++){
             bytesToFloat.byte[j] = sensor_data[24 + j + 4 * i]; //TODO or bytesToFloat.byte[4-j] = sensor_data[24 + j + 4 * i];
         }
-        double values[i] = bytesToFloat.floatVal;
+        values[i] = bytesToFloat.floatVal;
     }
     wbr_gyro_set_values(magnetometer->tag(), values);
   }
