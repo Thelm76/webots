@@ -857,7 +857,7 @@ Robot {
       resolution 1
     }
 
-    %{ if v2 then }
+    %{ if v2 then }%
       DEF EPUCK_GYRO Gyro {
         lookupTable [ -4.3633 -32768 0.03 4.3633 32767 0.03 ]     # convert rad/s in the range of +-250dps   #TODO add noise
         rotation 1 0 0 -1.57
