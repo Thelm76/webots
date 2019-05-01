@@ -318,12 +318,11 @@ int Wrapper::robotStep(int step) {
     }
   }
   SingleValueSensor *tof = DeviceManager::instance()->tofSensor();
-    if (tof && tof->isSensorRequested()) {
-      const double value = sensor_data[69] + (sensor_data[70] << 8);
-      wbr_distance_sensor_set_value(tof->tag(), value);
-      tof->resetSensorRequested();
-      tof->setLastRefreshTime(beginStepTime);
-    }
+  if (tof && tof->isSensorRequested()) {
+    const double value = sensor_data[69] + (sensor_data[70] << 8);
+    wbr_distance_sensor_set_value(tof->tag(), value);
+    tof->resetSensorRequested();
+    tof->setLastRefreshTime(beginStepTime);
   }
   for (int i = 0; i < 8; i++) {
     SingleValueSensor *ls = DeviceManager::instance()->lightSensor(i);
