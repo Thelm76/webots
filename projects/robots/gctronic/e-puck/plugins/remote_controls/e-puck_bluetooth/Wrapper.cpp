@@ -151,9 +151,10 @@ void Wrapper::stopActuators() {
   }
 
   // reset actuators
-  for (int i = 0; i < 2; i++)
+  for (int i = 0; i < 2; i++){
     motorSetVelocity(DeviceManager::instance()->motor(i)->tag(), 0.0);
     motorSetPosition(DeviceManager::instance()->motor(i)->tag(), 0.0);
+  }
   for (int i = 0; i < 10; i++)
     ledSet(DeviceManager::instance()->led(i)->tag(), 0);
 
