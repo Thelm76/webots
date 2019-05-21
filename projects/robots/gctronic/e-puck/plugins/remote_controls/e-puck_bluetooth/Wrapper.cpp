@@ -169,6 +169,15 @@ void Wrapper::setSamplingPeriod(WbDeviceTag tag, int samplingPeriod) {
     cerr << "Wrapper::setSamplingPeriod: unknown device" << endl;
 }
 
+void Wrapper::motorSetPosition(WbDeviceTag tag, double position) {
+  Device *device = DeviceManager::instance()->findDeviceFromTag(tag);
+  Motor *motor = dynamic_cast<Motor *>(device);
+  if (motor) {
+    motor->setPositionRequested();
+    motor->setPosition(position);
+  }
+}
+
 void Wrapper::motorSetVelocity(WbDeviceTag tag, double velocity) {
   Device *device = DeviceManager::instance()->findDeviceFromTag(tag);
   Motor *motor = dynamic_cast<Motor *>(device);
