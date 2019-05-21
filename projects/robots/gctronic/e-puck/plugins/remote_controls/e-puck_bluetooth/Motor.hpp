@@ -24,7 +24,7 @@
 class Motor : public Device {
 public:
   // Device Manager is responsible to create/destroy devices
-  Motor(WbDeviceTag tag, int index) : Device(tag, index), mVelocity(false), mVelocityRequested(false) {}
+  Motor(WbDeviceTag tag, int index) : Device(tag, index), mVelocity(false), mVelocityRequested(false), mPosition(false), mPositionRequested(false) {}
   virtual ~Motor() {}
 
   double velocity() const { return mVelocity; }
@@ -34,9 +34,19 @@ public:
   void resetVelocityRequested() { mVelocityRequested = false; }
   void setVelocityRequested() { mVelocityRequested = true; }
 
+  double position() const { return mPosition; }
+  void setPosition(double position) { mPosition = position; }
+
+  bool isPositionRequested() const { return mPositionRequested; }
+  void resetPositionRequested() { mPositionRequested = false; }
+  void setPositionRequested() { mPositionRequested = true; }
+  
 private:
   double mVelocity;
   bool mVelocityRequested;
+  
+  double mPosition;
+  bool mPositionRequested;
 };
 
 #endif
