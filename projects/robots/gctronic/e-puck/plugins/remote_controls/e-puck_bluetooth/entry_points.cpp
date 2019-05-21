@@ -29,6 +29,7 @@ bool wbr_init(WbrInterface *ri) {
   ri->wbr_set_sampling_period = Wrapper::setSamplingPeriod;
   ri->wbr_led_set = Wrapper::ledSet;
   ri->wbr_motor_set_velocity = Wrapper::motorSetVelocity;
+  ri->wbr_motor_set_position = Wrapper::motorSetPosition;
   ri->wbr_motor_set_torque_sampling_period = Wrapper::motorSetTorqueSamplingPeriod;
 
   return true;
