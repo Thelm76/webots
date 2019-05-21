@@ -41,6 +41,7 @@ public:
   static void *findAvailablePorts(void *);
   static void setSamplingPeriod(WbDeviceTag tag, int samplingPeriod);
   static void motorSetVelocity(WbDeviceTag tag, double velocity);
+  static void motorSetPosition(WbDeviceTag tag, double position);
   static void ledSet(WbDeviceTag tag, int state);
   static void motorSetTorqueSamplingPeriod(WbDeviceTag tag, int samplingPeriod) {}
 
