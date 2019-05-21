@@ -135,6 +135,7 @@ void Wrapper::stopActuators() {
   for (int i = 0; i < 2; i++) {
     Motor *motor = DeviceManager::instance()->motor(i);
     motor->resetVelocityRequested();
+    motor->resetPositionRequested();
   }
   for (int i = 0; i < 10; i++) {
     Led *led = DeviceManager::instance()->led(i);
@@ -152,6 +153,7 @@ void Wrapper::stopActuators() {
   // reset actuators
   for (int i = 0; i < 2; i++)
     motorSetVelocity(DeviceManager::instance()->motor(i)->tag(), 0.0);
+    motorSetPosition(DeviceManager::instance()->motor(i)->tag(), 0.0);
   for (int i = 0; i < 10; i++)
     ledSet(DeviceManager::instance()->led(i)->tag(), 0);
 
@@ -169,21 +171,21 @@ void Wrapper::setSamplingPeriod(WbDeviceTag tag, int samplingPeriod) {
     cerr << "Wrapper::setSamplingPeriod: unknown device" << endl;
 }
 
-void Wrapper::motorSetPosition(WbDeviceTag tag, double position) {
-  Device *device = DeviceManager::instance()->findDeviceFromTag(tag);
-  Motor *motor = dynamic_cast<Motor *>(device);
-  if (motor) {
-    motor->setPositionRequested();
-    motor->setPosition(position);
-  }
-}
-
 void Wrapper::motorSetVelocity(WbDeviceTag tag, double velocity) {
   Device *device = DeviceManager::instance()->findDeviceFromTag(tag);
   Motor *motor = dynamic_cast<Motor *>(device);
   if (motor) {
     motor->setVelocityRequested();
     motor->setVelocity(velocity);
+  }
+}
+
+void Wrapper::motorSetPosition(WbDeviceTag tag, double position) {
+  Device *device = DeviceManager::instance()->findDeviceFromTag(tag);
+  Motor *motor = dynamic_cast<Motor *>(device);
+  if (motor) {
+    motor->setPositionRequested();
+    motor->setPosition(position);
   }
 }
 
