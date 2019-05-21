@@ -132,6 +132,15 @@ void EPuckOutputPacket::apply(int simulationTime) {
     }
   }
 
+  // send the motor position commands if required
+  if (leftMotor->isPositionRequested() || rightMotor->isPositionRequested()) {
+    append(static_cast<char>(-'P'));
+    append(static_cast<short>(leftMotor->position() / 0.00628));  // 0.00628 = ( 2 * pi) / encoder_resolution
+    append(static_cast<short>(rightMotor->position() / 0.00628));
+    leftMotor->resetPositionRequested();
+    rightMotor->resetPositionRequested();
+  }
+
   // manage the position sensor
   if (DeviceManager::instance()->positionSensor(0)->isSensorRequested() ||
       DeviceManager::instance()->positionSensor(1)->isSensorRequested()) {
